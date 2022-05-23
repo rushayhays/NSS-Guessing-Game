@@ -1,13 +1,9 @@
 ﻿using System;
 
-//Phase 7
+//Phase 8
 //The program should be updated to...
 
-//Prompt the user for a difficulty level before they are prompted to guess the number.
-//The difficulty level should determine how many guesses the user gets. The difficulty levels should be:
-//Easy - this gives the user eight guesses.
-//Medium - this gives the user six guesses.
-//Hard - this gives the user four guesses.
+//Add a difficulty level of "Cheater" which will cause the program to continue prompting the user until they get the answer correct.
 
 namespace GuessingGame
 {
@@ -23,8 +19,8 @@ namespace GuessingGame
                 int Difficulty = 0;
                 Console.WriteLine("How difficult do you want this game to be?");
                 Console.WriteLine("1) Easy");
-                Console.WriteLine("1) Medium");
-                Console.WriteLine("1) Hard");
+                Console.WriteLine("2) Medium");
+                Console.WriteLine("3) Hard");
                 string userResponse = Console.ReadLine();
                 int userResponseAsANumber = int.Parse(userResponse);
                 if(userResponseAsANumber == 1){
@@ -35,7 +31,10 @@ namespace GuessingGame
                 }
                 else if(userResponseAsANumber == 3){
                     Difficulty = 4;
-                }else{
+                }else if(userResponseAsANumber == 4){
+                     Difficulty = 33;
+                }
+                else{
                     Console.WriteLine("That is not a valid option");
                 }
                 return Difficulty;
@@ -81,7 +80,57 @@ namespace GuessingGame
                 }
                 
             }
-            GuessingGame(SetDifficulty());
+
+            void CheaterGame()
+            {
+                int GameCounter = 1;
+                Random r = new Random();
+                int RandomSecretNumber= r.Next(1,100);
+
+                Console.WriteLine("Guess the secret number:");
+                string Guess = Console.ReadLine();
+                int GuessAsANumber = int.Parse(Guess);
+                bool isNumberGuessed = false;
+
+                while(isNumberGuessed == false)
+                {
+                    if(RandomSecretNumber == GuessAsANumber)
+                    {
+                        Console.WriteLine("Success you guessed the secret number!");
+                        isNumberGuessed = true;
+                        Console.WriteLine($"You finished in {GameCounter} guesses");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Try Again, you failure.");
+                        Console.WriteLine("");
+                        Console.WriteLine($"You have made {GameCounter} guesses out of Infinity, you Cheater");
+                        Console.WriteLine("");
+                        GameCounter++;
+                        if(GuessAsANumber > RandomSecretNumber){
+                            Console.WriteLine("Hint, your guess was too high");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Hint, your guess was too low");
+                        }
+                        Console.WriteLine("");
+                        Console.WriteLine("Guess the secret number:");
+                        string newGuess = Console.ReadLine();
+                        GuessAsANumber = int.Parse(newGuess);
+                    }     
+                }
+                
+            }
+
+
+            int ChosenDifficulty = SetDifficulty();
+            if(ChosenDifficulty == 33){
+                CheaterGame();
+            }
+            else{
+                GuessingGame(ChosenDifficulty);
+            }
 
         }
     }
