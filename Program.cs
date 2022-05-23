@@ -16,6 +16,7 @@ namespace GuessingGame
            
            int SetDifficulty()
            {
+                bool userResponseIsValid = false;
                 int Difficulty = 0;
                 Console.WriteLine("How difficult do you want this game to be?");
                 Console.WriteLine("1) Easy");
@@ -33,9 +34,15 @@ namespace GuessingGame
                     Difficulty = 4;
                 }else if(userResponseAsANumber == 4){
                      Difficulty = 33;
-                }
-                else{
-                    Console.WriteLine("That is not a valid option");
+                }else{
+                    while(userResponseIsValid == false){
+                        Console.WriteLine("How difficult do you want this game to be?");
+                Console.WriteLine("1) Easy");
+                Console.WriteLine("2) Medium");
+                Console.WriteLine("3) Hard");
+                string userResponse = Console.ReadLine();
+                int userResponseAsANumber = int.Parse(userResponse);
+                    }
                 }
                 return Difficulty;
            }
@@ -125,11 +132,16 @@ namespace GuessingGame
 
 
             int ChosenDifficulty = SetDifficulty();
+
+
             if(ChosenDifficulty == 33){
                 CheaterGame();
             }
-            else{
+            else if(ChosenDifficulty == 1 || ChosenDifficulty ==2 || ChosenDifficulty==3){
                 GuessingGame(ChosenDifficulty);
+            }
+            else{
+                Console.WriteLine("Not a Valid Option");
             }
 
         }
