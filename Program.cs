@@ -1,10 +1,10 @@
 ﻿using System;
 
-//Phase 3 
+//Phase 4
 //The program should be updated to...
 
-//Give the user four chances to guess the number.
-//Continue to display the success or failure messages as in phase 2
+//Display the number of the user's current guess in the prompt. For example, if the user has already guessed one time, the prommpt should say something like Your guess (2)>.
+//End the loop early if the user guesses the correct number.
 
 namespace GuessingGame
 {
@@ -12,25 +12,41 @@ namespace GuessingGame
     {
         static void Main(string[] args)
         {
-            int SecretNumber = 42;
 
-            for(int x=4; x>0;x--){
-                GuessingGame();
-            }
 
-            void GuessingGame(){
-                Console.WriteLine("Guess the Secret Number:");
+           
+           
+
+            void GuessingGame()
+            {
+                int GameCounter = 0;
+                int SecretNumber = 42;
+
+                Console.WriteLine("Guess the secret number:");
                 string Guess = Console.ReadLine();
                 int GuessAsANumber = int.Parse(Guess);
-                if(SecretNumber == GuessAsANumber)
+
+                while(GameCounter != 4)
                 {
-                    Console.WriteLine("Success you guessed the secret number!");
+                    if(SecretNumber == GuessAsANumber)
+                    {
+                        Console.WriteLine("Success you guessed the secret number!");
+                        GameCounter= 4;
+                        Console.WriteLine($"You finished in {GameCounter} guesses");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Try Again, you failure.");
+                        GameCounter++;
+                        Console.WriteLine($"You have made {GameCounter} guesses out of 4");
+                        Console.WriteLine("Guess the secret number:");
+                        string newGuess = Console.ReadLine();
+                        GuessAsANumber = int.Parse(newGuess);
+                    }     
                 }
-                else
-                {
-                    Console.WriteLine("Try Again, you failure.");
-                }
+                
             }
+            GuessingGame();
 
         }
     }
