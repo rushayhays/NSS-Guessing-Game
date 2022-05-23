@@ -1,10 +1,9 @@
 ﻿using System;
 
-//Phase 5
+//Phase 6
 //The program should be updated to...
 
-//Use a random number to set the secret number between 1 and 100 instead of a hard-coded number.
-//The prompt should display the number of guesses the user has left.
+//Inform the user if their guess was too high or too low, when they guess incorrectly.
 
 namespace GuessingGame
 {
@@ -20,9 +19,8 @@ namespace GuessingGame
             void GuessingGame()
             {
                 int GameCounter = 1;
-                Random RandomSecretNumber = new Random();
-                int genRand= RandomSecretNumber.Next(1,100);
-                int SecretNumber = 42;
+                Random r = new Random();
+                int RandomSecretNumber= r.Next(1,100);
 
                 Console.WriteLine("Guess the secret number:");
                 string Guess = Console.ReadLine();
@@ -30,7 +28,7 @@ namespace GuessingGame
 
                 while(GameCounter != 4)
                 {
-                    if(SecretNumber == GuessAsANumber)
+                    if(RandomSecretNumber == GuessAsANumber)
                     {
                         Console.WriteLine("Success you guessed the secret number!");
                         GameCounter= 4;
@@ -41,6 +39,13 @@ namespace GuessingGame
                         Console.WriteLine("Try Again, you failure.");
                         Console.WriteLine($"You have made {GameCounter} guesses out of 4");
                         GameCounter++;
+                        if(GuessAsANumber > RandomSecretNumber){
+                            Console.WriteLine("Hint, your guess was too high");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Hint, your guess was too low");
+                        }
                         Console.WriteLine("Guess the secret number:");
                         string newGuess = Console.ReadLine();
                         GuessAsANumber = int.Parse(newGuess);
